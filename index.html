@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Libros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .book {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .book img {
+            width: 120px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .book-details {
+            flex: 1;
+        }
+        .book-details h3 {
+            margin: 0;
+            color: #333;
+        }
+        .book-details p {
+            margin: 5px 0;
+        }
+        .price {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .buy-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Librería Online</h1>
+    <p>Encuentra tu próxima lectura</p>
+</header>
+
+<div class="container">
+    <div class="book">
+        <img src="https://via.placeholder.com/120x180" alt="Libro 1">
+        <div class="book-details">
+            <h3>El Principito</h3>
+            <p>Autor: Antoine de Saint-Exupéry</p>
+            <p class="price">$9.99</p>
+            <button class="buy-button">Comprar</button>
+        </div>
+    </div>
+
+    <div class="book">
+        <img src="https://via.placeholder.com/120x180" alt="Libro 2">
+        <div class="book-details">
+            <h3>Cien Años de Soledad</h3>
+            <p>Autor: Gabriel García Márquez</p>
+            <p class="price">$14.99</p>
+            <button class="buy-button">Comprar</button>
+        </div>
+    </div>
+
+    <div class="book">
+        <img src="https://via.placeholder.com/120x180" alt="Libro 3">
+        <div class="book-details">
+            <h3>Don Quijote de la Mancha</h3>
+            <p>Autor: Miguel de Cervantes</p>
+            <p class="price">$12.50</p>
+            <button class="buy-button">Comprar</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Librería Online. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
