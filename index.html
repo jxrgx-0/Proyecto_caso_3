@@ -1,149 +1,323 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Libros</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background: #4CAF50;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-        }
-        .book {
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-        .book img {
-            width: 120px;
-            height: auto;
-            margin-right: 20px;
-            border-radius: 4px;
-        }
-        .book-details {
-            flex: 1;
-        }
-        .book-details h3 {
-            margin: 0;
-            color: #333;
-        }
-        .book-details p {
-            margin: 5px 0;
-        }
-        .price {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        .buy-button {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .buy-button:hover {
-            background: #45a049;
-        }
-        footer {
-            background: #222;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 40px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda de Libros</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      margin: 0;
+      padding: 0;
+      color: white;
+      scroll-behavior: smooth;
+    }
+
+    .top-nav {
+      background-color: #111;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .top-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .top-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .top-nav a:hover {
+      background: #4CAF50;
+      color: #000;
+    }
+
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .book {
+      background: white;
+      border: 1px solid #06bb00;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      color: black;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .book img {
+      width: 120px;
+      height: auto;
+      margin-right: 20px;
+      border-radius: 4px;
+    }
+
+    .book-details {
+      flex: 1;
+    }
+
+    .book-details h3 {
+      margin: 0;
+      color: #333;
+    }
+
+    .book-details p {
+      margin: 5px 0;
+    }
+
+    .price {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .buy-button {
+      background: #4CAF50;
+      color: rgb(255, 251, 9);
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .buy-button:hover {
+      background: #45a049;
+    }
+
+    .agotado {
+      background: #222;
+      border: 1px solid #cc0000;
+    }
+
+    .agotado img {
+      filter: grayscale(100%);
+    }
+
+    .agotado .book-details h3 {
+      color: #ff4c4c;
+    }
+
+    .agotado .estado {
+      color: red;
+      font-weight: bold;
+    }
+
+    .agotado .buy-button {
+      background: #999;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .agotado .buy-button:hover {
+      background: #999;
+    }
+
+    #agotados {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    #agotados.visible {
+      display: block;
+      opacity: 1;
+    }
+
+    .volver-arriba {
+      display: block;
+      margin: 30px auto 10px;
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .volver-arriba:hover {
+      background: #3d9142;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
 
+<!-- Navegación -->
+<nav class="top-nav">
+  <ul>
+    <li><a href="#genero">genero</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+    <li><a href="#seccion-agotados" onclick="mostrarAgotados()">Agotado</a></li>
+  </ul>
+</nav>
+
+<a id="inicio"></a>
+
 <header>
-    <h1>Librería Online</h1>
-    <p>Encuentra tu próxima lectura</p>
+  <h1>Librería Online</h1>
+  <p>Encuentra tu próxima lectura</p>
 </header>
 
 <div class="container">
-    <div class="book">
-        <img src="https://m.media-amazon.com/images/I/713nEf55PkL._SL1500_.jpg" alt="El Principito">
-        <div class="book-details">
-            <h3>El Principito</h3>
-            <p>Autor: Antoine de Saint-Exupéry</p>
-            <p class="price">$9.99</p>
-            <button class="buy-button">Comprar</button>
-        </div>
+  <!-- Libros disponibles -->
+  <div class="book">
+    <img src="https://m.media-amazon.com/images/I/713nEf55PkL._SL1500_.jpg" alt="El Principito">
+    <div class="book-details">
+      <h3>El Principito</h3>
+      <p>Autor: Antoine de Saint-Exupéry</p>
+      <p class="price">$9.99</p>
+      <button class="buy-button">Comprar</button>
     </div>
+  </div>
 
-    <div class="book">
-        <img src="https://www.rae.es/sites/default/files/portada_cien_anos_de_soledad_0.jpg" alt="Cien Años de Soledad">
-        <div class="book-details">
-            <h3>Cien Años de Soledad</h3>
-            <p>Autor: Gabriel García Márquez</p>
-            <p class="price">$14.99</p>
-            <button class="buy-button">Comprar</button>
-        </div>
+  <div class="book">
+    <img src="https://www.rae.es/sites/default/files/portada_cien_anos_de_soledad_0.jpg" alt="Cien Años de Soledad">
+    <div class="book-details">
+      <h3>Cien Años de Soledad</h3>
+      <p>Autor: Gabriel García Márquez</p>
+      <p class="price">$14.99</p>
+      <button class="buy-button">Comprar</button>
     </div>
+  </div>
 
-    <div class="book">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.p2Qht0iMCaSgQb3wbzHukAHaKN?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Don Quijote de la Mancha">
-        <div class="book-details">
-            <h3>Don Quijote de la Mancha</h3>
-            <p>Autor: Miguel de Cervantes</p>
-            <p class="price">$12.50</p>
-            <button class="buy-button">Comprar</button>
-        </div>
+  <div class="book">
+    <img src="https://tse2.mm.bing.net/th/id/OIP.p2Qht0iMCaSgQb3wbzHukAHaKN?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Don Quijote de la Mancha">
+    <div class="book-details">
+      <h3>Don Quijote de la Mancha</h3>
+      <p>Autor: Miguel de Cervantes</p>
+      <p class="price">$12.50</p>
+      <button class="buy-button">Comprar</button>
     </div>
-</div><div class="book">
+  </div>
+
+  <div class="book">
     <img src="https://ep00.epimg.net/cultura/imagenes/2013/06/24/album/1372074250_748413_1372164253_album_normal.jpg" alt="Rayuela">
     <div class="book-details">
-        <h3>Rayuela</h3>
-        <p>Autor: Julio Cortázar</p>
-        <p class="price">$11.99</p>
-        <button class="buy-button">Comprar</button>
+      <h3>Rayuela</h3>
+      <p>Autor: Julio Cortázar</p>
+      <p class="price">$11.99</p>
+      <button class="buy-button">Comprar</button>
     </div>
-</div>
+  </div>
 
-<div class="book">
+  <div class="book">
     <img src="https://imagessl5.casadellibro.com/a/l/t0/45/9788408043645.jpg" alt="La sombra del viento">
     <div class="book-details">
-        <h3>La sombra del viento</h3>
-        <p>Autor: Carlos Ruiz Zafón</p>
-        <p class="price">$13.99</p>
-        <button class="buy-button">Comprar</button>
+      <h3>La sombra del viento</h3>
+      <p>Autor: Carlos Ruiz Zafón</p>
+      <p class="price">$13.99</p>
+      <button class="buy-button">Comprar</button>
     </div>
-</div>
+  </div>
 
-<div class="book">
+  <div class="book">
     <img src="https://image.tmdb.org/t/p/original/AeeqpYGfMr4dpepzrwfYTo22aDy.jpg" alt="Pedro Páramo">
     <div class="book-details">
-        <h3>Pedro Páramo</h3>
-        <p>Autor: Juan Rulfo</p>
-        <p class="price">$10.50</p>
-        <button class="buy-button">Comprar</button>
+      <h3>Pedro Páramo</h3>
+      <p>Autor: Juan Rulfo</p>
+      <p class="price">$10.50</p>
+      <button class="buy-button">Comprar</button>
     </div>
+  </div>
 </div>
 
-<!-- Agrega los demás libros siguiendo este mismo patrón -->
+<!-- Libros Agotados -->
+<a id="seccion-agotados"></a>
+<div id="agotados" class="container">
+  <h2 style="color: #ffffff; border-bottom: 2px solid #cc0000;">Libros Agotados</h2>
 
+  <!-- Agregados -->
+  <div class="book agotado">
+    <img src="https://th.bing.com/th/id/R.ab76db1d4f9f995926954946dc1c6590?rik=Ehr46t2SScVPXQ&riu=http%3a%2f%2f4.bp.blogspot.com%2f_ShzNBAG6dZA%2fTQ_jA2leoQI%2fAAAAAAAAARU%2fvFxfTW9Eask%2fs1600%2fla%2btregua.jpg&ehk=R4CjcEnDC5rVqJB%2fQI2AHBdp5iMHtaMER3H2%2bNuikfs%3d&risl=&pid=ImgRaw&r=0" alt="La Tregua">
+    <div class="book-details">
+      <h3>La Tregua</h3>
+      <p>Autor: Mario Benedetti</p>
+      <p class="estado">Agotado</p>
+      <button class="buy-button" disabled>No disponible</button>
+    </div>
+  </div>
 
+  <div class="book agotado">
+    <img src="https://th.bing.com/th/id/R.7f4d34a8cc60feafc653b5aaf03e37b2?rik=bQnBSA%2fSb%2bhaPw&riu=http%3a%2f%2f2.bp.blogspot.com%2f-trdPWkJ6A6A%2fUgufOCfNDDI%2fAAAAAAAABeE%2fp-h81IEmleQ%2fs1600%2f1984_1.jpg&ehk=yYnKIgzYP%2f9dsceTtyhUqXehV1JoblLvIzNzdWiZ7fA%3d&risl=&pid=ImgRaw&r=0" alt="1984">
+    <div class="book-details">
+      <h3>1984</h3>
+      <p>Autor: George Orwell</p>
+      <p class="estado">Agotado</p>
+      <button class="buy-button" disabled>No disponible</button>
+    </div>
+  </div>
+
+  <!-- Nuevos libros agotados -->
+  <div class="book agotado">
+    <img src="https://images.cdn2.buscalibre.com/fit-in/360x360/9e/39/9e3949c949c4abc1f69e2cce613532b1.jpg" alt="Fahrenheit 451">
+    <div class="book-details">
+      <h3>Fahrenheit 451</h3>
+      <p>Autor: Ray Bradbury</p>
+      <p class="estado">Agotado</p>
+      <button class="buy-button" disabled>No disponible</button>
+    </div>
+  </div>
+
+  <div class="book agotado">
+    <img src="https://th.bing.com/th/id/R.35e81f0d6ccb5fcb0e282e4a3b7fd0a4?rik=9JTiZlS7zhcm5A&riu=http%3a%2f%2fwww.blogerin.com%2fwp-content%2fuploads%2f2014%2f06%2fBajo-la-misma-estrella-Tapa-del-libro.jpg&ehk=D7A%2bq9tu5zPUoDY5tYZzvz6mNit%2fN7FZlrBfmUXWM2o%3d&risl=&pid=ImgRaw&r=0" alt="El Amigo de mi Madre">
+    <div class="book-details">
+      <h3>Bajo la misma estrella</h3>
+      <p>Autor: John green</p>
+      <p class="estado">Agotado</p>
+      <button class="buy-button" disabled>No disponible</button>
+    </div>
+  </div>
+
+  <button class="volver-arriba" onclick="volverArriba()">Volver arriba</button>
+</div>
 
 <footer>
-    <p>&copy; 2025 Librería Online. Todos los derechos reservados.</p>
+  <p>&copy; 2025 Librería Online. Todos los derechos reservados.</p>
 </footer>
+
+<script>
+  function mostrarAgotados() {
+    const seccion = document.getElementById("agotados");
+    seccion.classList.add("visible");
+  }
+
+  function volverArriba() {
+    const seccion = document.getElementById("agotados");
+    seccion.classList.remove("visible");
+    location.href = "#inicio";
+  }
+</script>
 
 </body>
 </html>
-<!D
