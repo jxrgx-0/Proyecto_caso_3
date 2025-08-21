@@ -1,6 +1,17 @@
 21-08-2025
 documentos trabajados -index.html
 
+trabajado
+
+estructura de la pagina
+libros agregado
+precio agregado
+seccion de agotados
+seccion de carrito
+images agregadas
+
+
+
 TAREAS PENDIENTES
 
 cambiar el nombre a la libreria
